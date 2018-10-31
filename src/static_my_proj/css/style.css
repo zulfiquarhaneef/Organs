@@ -1475,7 +1475,7 @@ ul.tabs-nav .tab-nav.active {
 .contact-form textarea {
     width: 100%;
     padding: 15px 20px;
-    border: 0;
+    margin-top: 20px; 
     outline: none;
     font-size: 12px;
     line-height: 1;
