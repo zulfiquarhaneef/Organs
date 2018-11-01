@@ -70,21 +70,6 @@ class Doctor(models.Model):
 		return self.doc_name
 
 
-#Organ request:
-class OrganReq(models.Model):
-	full_name = models.CharField(max_length=200)
-	address = models.CharField(max_length=400)
-	district = models.CharField(max_length=200)
-	state = models.CharField(max_length=200)
-	pincode = models.CharField(max_length=200)
-	gender = models.CharField(choices=GENDER, max_length=10)
-#	bgroup = models.CharField(max_length=200)
-	contact = models.CharField(max_length=200)
-	organ = models.ForeignKey(Organ, related_name='organ')
-	reason = models.CharField(max_length=200)
-	def __str__(self):
-		return self.full_name
-
 #Donation request
 class DonationReq(models.Model):
 	full_name=models.CharField(max_length=200)
