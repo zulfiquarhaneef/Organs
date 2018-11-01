@@ -14,6 +14,6 @@ Create new python venv using (Python 3.6 is required! - 3.7 won't work)
 
 `pip install django-background-tasks`
 
-`cd src`
+`cd odats`
 
 `python3 manage.py runserver`
