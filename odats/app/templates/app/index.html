@@ -1,8 +1,10 @@
 {% url 'home' as home_url %}
 {% url 'login' as login_url %}
+{% url 'register' as register_url %}
 {% url 'logout' as logout_url %}
 {% url 'about' as about_url %}
 {% url 'donation' as donate_url %}
+{% url 'reqorgan' as reqorgan_url %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -40,17 +42,30 @@
                                 <li class="current-menu-item"><a href="#">Home</a></li>
                                 <li><a href='{{ uabout_url }}'>About us</a></li>
                                 {% if user.is_authenticated %}
-                                <li><a href='{{ donate_url }}'>Donation Form</a></li>
-                                
-                                <li><a href='{{ logout_url }}'>Logout</a></li>
 
+                                {% if user.is_staff %}
+                                
+                                <li><a href='{{ reqorgan_url }}'>Request Organ</a></li>
+
+                                {% else %}
+                                
+                                <li><a href='{{ donate_url }}'>Donate Organ</a></li>
+                                
+                                {% endif %}
+
+                                <li><a href='{{ logout_url }}'>Logout</a></li>
                                 <li class="call-btn button gradient-bg mt-3 mt-md-0">
                                     <a class="d-flex justify-content-center align-items-center" href="#"> {{ user.full_name }}</a>
                                 </li>
 
                                 {% else %}
                                 <li><a href='{{ login_url }}'>Login</a></li>
+                                <li><a href='{{ register_url }}'>Sign Up</a></li>
+                                <li class="call-btn button gradient-bg mt-3 mt-md-0">
+                                    <a class="d-flex justify-content-center align-items-center" href="#"> {{ user }}</a>
+                                </li>
                                 {% endif %}
+                                
                             </ul>
                         </nav><!-- .site-navigation -->
 

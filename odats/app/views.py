@@ -71,8 +71,8 @@ class LoginView(FormView):
                 del request.session['guest_email_id']
             except:
                 pass
-#            if user.is_admin:
-#            	return redirect("/admin")
+            if user.is_admin:
+            	return redirect("/admin")
             return redirect("/")
         return super(LoginView, self).form_invalid(form)
 

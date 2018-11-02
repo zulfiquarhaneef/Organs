@@ -157,9 +157,7 @@ class Doctor(models.Model):
 	hospital=models.ForeignKey(Hospital, related_name='hospital')
 	address=models.CharField('Address',max_length=200)
 	phone=models.CharField('Contact Number',max_length=200)
-	email=models.CharField('E-mail',max_length=200)
-	username=models.CharField('Username',max_length=200)
-	password=models.CharField('Password',max_length=200)
+	user = models.ForeignKey(User, related_name="doctor_user", default=0)
 		
 	def __str__(self):
 		return self.doc_name
