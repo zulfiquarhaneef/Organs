@@ -11,7 +11,7 @@ from .models import GuestEmail
 # Create your views here.
 
 def index(request):
-	return HttpResponse('Hello world!')
+	return render(request, 'app/index.html', {})
 
 def about(request):
 	return HttpResponse("About page")
