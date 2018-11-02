@@ -7,14 +7,11 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from .forms import UserAdminCreationForm, UserAdminChangeForm
-from .models import GuestEmail, Organ, DonationReq, DoctorRequestOrgan
+from .models import GuestEmail, Organ, DonateOrgan, DoctorRequestOrgan
 from .models import Hospital, Doctor
 
 
 User = get_user_model()
-
-
-
 
 class UserAdmin(BaseUserAdmin):
     # The forms to add and change user instances
@@ -59,7 +56,7 @@ class GuestEmailAdmin(admin.ModelAdmin):
 
 admin.site.register(GuestEmail, GuestEmailAdmin)
 admin.site.register(Organ)
-admin.site.register(DonationReq)
+admin.site.register(DonateOrgan)
 admin.site.register(DoctorRequestOrgan)
 admin.site.register(Hospital)
 admin.site.register(Doctor)

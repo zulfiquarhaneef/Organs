@@ -27,100 +27,6 @@ ORGAN = (
     ('EYES','EYES'),
 )
 
-#Organs :
-
-#Organ - a model to represent an organ
-class Organ(models.Model):
-	type_of_organ = models.CharField('Organ', choices=ORGAN, default='HEART', max_length=15)
-	bloodgroup = models.CharField('BGroup', max_length=10)
-	pub_date = models.DateTimeField('datetime')
-	expired = models.BooleanField(default=False)
-	assigned = models.BooleanField(default=False)
-	
-	def __str__(self):
-		return self.type_of_organ + ' - ' + self.bloodgroup
-
-#Hospital:
-class Hospital(models.Model):
-	hospital_name = models.CharField(max_length=200)
-	hospital_address = models.CharField(max_length=400)
-	licno = models.CharField(max_length=200)
-	certificate = models.CharField(max_length=200)
-	district = models.CharField(max_length=200)
-	state = models.CharField(max_length=200)
-	nameofgm = models.CharField(max_length=200)
-	departments = models.CharField(max_length=200)
-	email = models.CharField(max_length=200)
-	contact = models.CharField(max_length=200)
-	website = models.CharField(max_length=300)
-	def __str__(self):
-		return self.hospital_name
-
-# Doctor - model for doctor:
-class Doctor(models.Model):
-	doc_name=models.CharField('Doctor Name',max_length=200)
-	hospital=models.ForeignKey(Hospital, related_name='hospital')
-	address=models.CharField('Address',max_length=200)
-	phone=models.CharField('Contact Number',max_length=200)
-	email=models.CharField('E-mail',max_length=200)
-	username=models.CharField('Username',max_length=200)
-	password=models.CharField('Password',max_length=200)
-		
-	def __str__(self):
-		return self.doc_name
-
-
-#Donation request
-class DonationReq(models.Model):
-	full_name=models.CharField(max_length=200)
-	Address=models.CharField(max_length=500)
-	District=models.CharField(max_length=200)
-	Pincode=models.CharField(max_length=200)
-	State=models.CharField(max_length=200)
-	Gender=models.CharField(choices=GENDER, max_length=10)
-#	Blood_group=models.CharField(max_length=200)
-	Relative_name=models.CharField(max_length=200)
-	Relationship=models.CharField(max_length=200)
-	Contact=models.CharField(max_length=200)
-	Donate=models.ForeignKey(Organ, related_name='donate')
-	
-	def __str__(self):
-		return self.full_name
-
-#DOctor requested organs
-class DoctorRequestOrgan(models.Model):
-	Doctor = models.ForeignKey(Doctor, related_name='doctor')
-	Hospitalname = models.ForeignKey(Hospital, related_name='hospitalname')
-	Patientname = models.CharField(max_length=200)
-	Patienttype = models.CharField(max_length=200)
-#	Bloodgroup = models.CharField(max_length=200)
-	Organs = models.ForeignKey(Organ, related_name='organs')
-	Reason=models.CharField(max_length=300)
-	Description=models.CharField(max_length=500)
-	Contactnumber=models.CharField(max_length=200)
-	Email=models.CharField(max_length=200)
-	def __str__(self):
-		return self.Doctor
-		
-	def __unicode__(self):
-		return self.Doctor
-
-######################################
-
-#ContactInfo:
-class ContactInfo(models.Model):
-	name=models.CharField(max_length=200)
-	email=models.CharField(max_length=200)
-	subject=models.CharField(max_length=200)
-	message=models.CharField(max_length=500)
-	def __str__(self):
-		return self.name
-		
-	def __unicode__(self):
-		return self.title
-
-
-
 #User models:
 
 class UserManager(BaseUserManager):
@@ -214,6 +120,95 @@ class GuestEmail(models.Model):
 
     def __str__(self):
         return self.email
+
+#Organs :
+
+#Organ - a model to represent an organ
+class Organ(models.Model):
+	type_of_organ = models.CharField('Organ', choices=ORGAN, default='HEART', max_length=15)
+	bloodgroup = models.CharField('BGroup', max_length=10)
+	pub_date = models.DateTimeField('datetime')
+	expired = models.BooleanField(default=False)
+	assigned = models.BooleanField(default=False)
+	donor = models.ForeignKey(User, related_name='donor', default=0)
+	
+	def __str__(self):
+		return self.type_of_organ + ' - ' + self.bloodgroup
+
+#Hospital:
+class Hospital(models.Model):
+	hospital_name = models.CharField(max_length=200)
+	hospital_address = models.CharField(max_length=400)
+	licno = models.CharField(max_length=200)
+	certificate = models.CharField(max_length=200)
+	district = models.CharField(max_length=200)
+	state = models.CharField(max_length=200)
+	nameofgm = models.CharField(max_length=200)
+	departments = models.CharField(max_length=200)
+	email = models.CharField(max_length=200)
+	contact = models.CharField(max_length=200)
+	website = models.CharField(max_length=300)
+	def __str__(self):
+		return self.hospital_name
+
+# Doctor - model for doctor:
+class Doctor(models.Model):
+	doc_name=models.CharField('Doctor Name',max_length=200)
+	hospital=models.ForeignKey(Hospital, related_name='hospital')
+	address=models.CharField('Address',max_length=200)
+	phone=models.CharField('Contact Number',max_length=200)
+	email=models.CharField('E-mail',max_length=200)
+	username=models.CharField('Username',max_length=200)
+	password=models.CharField('Password',max_length=200)
+		
+	def __str__(self):
+		return self.doc_name
+
+
+#Donation request
+class DonateOrgan(models.Model):
+	full_name = models.CharField(max_length=200)
+	Address = models.CharField(max_length=500)
+	District = models.CharField(max_length=200)
+	Pincode = models.CharField(max_length=200)
+	State = models.CharField(max_length=200)
+	Gender = models.CharField(choices=GENDER, max_length=10)
+#	Blood_group=models.CharField(max_length=200)
+	Relative_name = models.CharField(max_length=200)
+	Relationship = models.CharField(max_length=200)
+	Contact = models.CharField(max_length=200)
+	organ = models.ForeignKey(Organ, related_name='organ')
+	
+	def __str__(self):
+		return self.full_name
+
+#DOctor requested organs
+class DoctorRequestOrgan(models.Model):
+	Doctor = models.ForeignKey(Doctor, related_name='doctor')
+	Hospitalname = models.ForeignKey(Hospital, related_name='hospitalname')
+	Patientname = models.CharField(max_length=200)
+	Patienttype = models.CharField(max_length=200)
+#	Bloodgroup = models.CharField(max_length=200)
+	Organs = models.ForeignKey(Organ, related_name='organs')
+	Reason=models.CharField(max_length=300)
+	Description=models.CharField(max_length=500)
+	Contactnumber=models.CharField(max_length=200)
+	Email=models.CharField(max_length=200)
+	def __str__(self):
+		return self.Doctor
+		
+	def __unicode__(self):
+		return self.Doctor
+
+######################################
+
+class AssingedOrgans(models.Model):
+    organ = models.ForeignKey(Organ, related_name='assigned_organ')
+    assigned_to = models.ForeignKey(Doctor, related_name='assigned_to')
+
+    def __str__(self):
+        return self.organ
+
 
 
 #@background()

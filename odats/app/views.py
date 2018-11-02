@@ -16,8 +16,11 @@ def index(request):
 def about(request):
 	return HttpResponse("About page")
 
-def contact(request):
-	return HttpResponse("Contact page")
+def donate(request):
+	return HttpResponse("Donate page")
+
+def reqorgan(request):
+    return HttpResponse("Request Organ page")
 
 def login(request):
 	return HttpResponse("Login page")
