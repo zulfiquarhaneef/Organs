@@ -11,7 +11,8 @@ from .models import GuestEmail
 # Create your views here.
 
 def index(request):
-	return render(request, 'app/index.html', {})
+	context = {}
+	return render(request, 'app/index.html', context)
 
 def about(request):
 	return HttpResponse("About page")
@@ -22,17 +23,11 @@ def donate(request):
 def reqorgan(request):
     return HttpResponse("Request Organ page")
 
-def login(request):
-	return HttpResponse("Login page")
-
 def signup(request):
 	return HttpResponse("Singnup page")
 
 def registerdonor(request):
 	return HttpResponse("Register Donor")
-
-def logout(request):
-	return HttpResponse("Logout page")
 
 
 #User account registration views:
@@ -60,7 +55,7 @@ def guest_register_view(request):
 class LoginView(FormView):
     form_class = LoginForm
     success_url = '/'
-    template_name = 'signup/login.html'
+    template_name = 'app/login.html'
 
     def form_valid(self, form):
         request = self.request
@@ -76,10 +71,9 @@ class LoginView(FormView):
                 del request.session['guest_email_id']
             except:
                 pass
-            if is_safe_url(redirect_path, request.get_host()):
-                return redirect(redirect_path)
-            else:
-                return redirect("/")
+#            if user.is_admin:
+#            	return redirect("/admin")
+            return redirect("/")
         return super(LoginView, self).form_invalid(form)
 
 
