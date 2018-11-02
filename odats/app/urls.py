@@ -13,5 +13,4 @@ urlpatterns = [
 	url(r'^login/$', views.LoginView.as_view(), name='login'),
     url(r'^logout/$', LogoutView.as_view(next_page=reverse_lazy('login')), name='logout'),
 	url(r'^register/$', views.RegisterView.as_view(), name='register'),
-	url(r'^register/guest/$', views.guest_register_view, name='guest_register'),
 ]

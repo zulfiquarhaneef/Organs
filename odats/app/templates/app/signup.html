@@ -1,8 +1,10 @@
+
+{% load static %}
 {% url 'home' as home_url %}
 {% url 'login' as login_url %}
-{% url 'register' as register_url %}
 {% url 'about' as about_url %}
-{% load static %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,8 +39,9 @@
                             <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-items-center">
                                 <li class="current-menu-item"><a href="{{ home_url }}">Home</a></li>
                                 <li><a href='{{ about_url }}'>About us</a></li>
-                                <li><a href='{{ register_url }}'>Sign Up</a></li>
-
+                                <li><a href='{{ login_url }}'>Login</a></li>
+                                
+                                
                                 <li class="call-btn button gradient-bg mt-3 mt-md-0">
                                     <a class="d-flex justify-content-center align-items-center" href="#"> {{ user }}</a>
                                 </li>
@@ -59,43 +62,44 @@
        
                
     <div class="contact-form">
-        {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
-        {% endif %}
         <div class="container">
-            <form method="POST" action="{% url 'login' %}">{% csrf_token %}
-                <center><h2>Login</h2></center>
+            <form method="POST">{% csrf_token %}
+                <center><h2>Registration</h2></center>
+            
+            <div class="row">
+
+              <div class="col-4">
+              </div>
+
+              <div class="col">
+                   
+
                 
-                <div class="row">
+                   
+               
 
-                  <div class="col-4">
-                  </div>
-
-                  <div class="col">
-                     
-
+                    
 
 
                     {{ form }}
 
+              
 
-                    
+               
                     <input type="submit" name="submit" style="margin-left:100px" value="submit" class="button gradient-bg">
+                       </form>         
+
+              </div>
+             
+
+              <div class="col-4">
+              </div>
                          
-
-            </div>
-            
-
-            <div class="col-4">
-            </div>
-            
-        </div>
+         </div>
      </form>
     </div><!-- contact-form -->
 
     
-
-
 
     <footer class="site-footer">
         <div class="footer-widgets">
