@@ -1,10 +1,22 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
+from .models import DoctorRequestOrgan, Organ
+
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 
 User = get_user_model()
+
+
+class RequestOrganForm(forms.ModelForm):
+    class Meta:
+        model = DoctorRequestOrgan
+        exclude = ['doctor']
+
+    def __init__(self, *args, **kwargs):
+        super(RequestOrganForm, self).__init__(*args, **kwargs)
+        self.fields['organs'].queryset = Organ.objects.exclude(expired=True).exclude(assigned=True)
 
 
 class UserAdminCreationForm(forms.ModelForm):

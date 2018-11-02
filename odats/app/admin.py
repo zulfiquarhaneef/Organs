@@ -8,7 +8,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from .forms import UserAdminCreationForm, UserAdminChangeForm
 from .models import GuestEmail, Organ, DonateOrgan, DoctorRequestOrgan
-from .models import Hospital, Doctor
+from .models import Hospital, Doctor, OdatsSummary, AssingedOrgans
 
 
 User = get_user_model()
@@ -46,17 +46,31 @@ admin.site.register(User, UserAdmin)
 # Remove Group Model from admin. We're not using it.
 admin.site.unregister(Group)
 
+class ReportsAdmin(admin.ModelAdmin):
+    change_list_template = 'admin/odats_summary_change_list.html'
+
+    def changelist_view(self, request):
+        response = super().changelist_view(
+            request)
+        try:
+            qs = response.context_data['cl'].queryset
+        except (AttributeError, KeyError):
+            return response
+
+        objs = {
+            'organs' : Organ.objects.all(),
+            'assigned' : AssingedOrgans.objects.all()
+        }
+
+        response.context_data['summary'] = objs
+        return response
 
 
-class GuestEmailAdmin(admin.ModelAdmin):
-    search_fields = ['email']
-    class Meta:
-        model = GuestEmail
+admin.site.register(OdatsSummary, ReportsAdmin)
 
-
-admin.site.register(GuestEmail, GuestEmailAdmin)
 admin.site.register(Organ)
 admin.site.register(DonateOrgan)
 admin.site.register(DoctorRequestOrgan)
+admin.site.register(AssingedOrgans)
 admin.site.register(Hospital)
 admin.site.register(Doctor)

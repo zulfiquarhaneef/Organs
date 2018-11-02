@@ -15,6 +15,18 @@ GENDER = (
     ('FEMALE', 'FEMALE')
 )
 
+BLOODGROUPS = (
+	('A+', 'A+'),
+	('A-', 'A-'),
+	('B+', 'B+'),
+	('B-', 'B-'),
+	('AB+', 'AB+'),
+	('AB-', 'AB-'),
+	('O+', 'O+'),
+	('O-', 'O-')
+)
+
+
 #HEART, LUNGS, KIDNEY, LIVER, TISSUE, PANCREAS, CORNEAS,EYES = range(8)
 ORGAN = (
     ('HEART', 'HEART'),
@@ -126,7 +138,7 @@ class GuestEmail(models.Model):
 #Organ - a model to represent an organ
 class Organ(models.Model):
 	type_of_organ = models.CharField('Organ', choices=ORGAN, default='HEART', max_length=15)
-	bloodgroup = models.CharField('BGroup', max_length=10)
+	bloodgroup = models.CharField('BGroup', choices=BLOODGROUPS, default='B+', max_length=10)
 	pub_date = models.DateTimeField('datetime')
 	expired = models.BooleanField(default=False)
 	assigned = models.BooleanField(default=False)
@@ -182,18 +194,18 @@ class DonateOrgan(models.Model):
 
 #DOctor requested organs
 class DoctorRequestOrgan(models.Model):
-	Doctor = models.ForeignKey(Doctor, related_name='doctor')
+	Doctor = models.ForeignKey(User, related_name='doctor')
 	Hospitalname = models.ForeignKey(Hospital, related_name='hospitalname')
 	Patientname = models.CharField(max_length=200)
 	Patienttype = models.CharField(max_length=200)
 #	Bloodgroup = models.CharField(max_length=200)
-	Organs = models.ForeignKey(Organ, related_name='organs')
+	organs = models.ForeignKey(Organ, related_name='organs')
 	Reason=models.CharField(max_length=300)
 	Description=models.CharField(max_length=500)
 	Contactnumber=models.CharField(max_length=200)
 	Email=models.CharField(max_length=200)
 	def __str__(self):
-		return self.Doctor
+		return self.Doctor.full_name
 		
 	def __unicode__(self):
 		return self.Doctor
@@ -202,11 +214,17 @@ class DoctorRequestOrgan(models.Model):
 
 class AssingedOrgans(models.Model):
     organ = models.ForeignKey(Organ, related_name='assigned_organ')
-    assigned_to = models.ForeignKey(Doctor, related_name='assigned_to')
+    assigned_to = models.ForeignKey(User, related_name='assigned_to')
 
     def __str__(self):
-        return self.organ
+        return self.organ.__str__()
 
+#Proxy model for dashboard features in admin
+class OdatsSummary(AssingedOrgans):
+	class Meta:
+		proxy = True
+		verbose_name = 'ODATS Summary'
+		verbose_name_plural = 'ODATS Summary'
 
 
 #@background()

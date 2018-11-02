@@ -1064,8 +1064,7 @@ ul.tabs-nav .tab-nav.active {
 --------------------------------------------------------------*/
 .single-page .site-header {
     position: relative;
-    padding: 220px 0 140px;
-    background-color: #f0f4f8;
+    padding: 80px 0 140px;
 }
 
 .single-page .site-header h1 {
