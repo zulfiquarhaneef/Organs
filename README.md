@@ -1,4 +1,4 @@
-# Project ODIS 
+# Project ODIS (Deprecated) - Checkout v2 branch for latest.
 Organ donation and transplant
 
 
