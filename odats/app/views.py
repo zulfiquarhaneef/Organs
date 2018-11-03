@@ -23,10 +23,6 @@ def about(request):
 def donate(request):
 	return HttpResponse("Donate page")
 
-@login_required
-def reqorgan(request):
-    return HttpResponse("Request Organ page")
-
 
 class ReqOrganView(FormView):
 	form_class = RequestOrganForm
@@ -34,7 +30,7 @@ class ReqOrganView(FormView):
 	success_url = '/'
 
 	def form_valid(self, form):
-		form.instance.doctor = self.request.user
+		form.instance.Doctor = self.request.user
 		form.instance.organs.assigned = True
 		form.instance.organs.save()
 		form.save()

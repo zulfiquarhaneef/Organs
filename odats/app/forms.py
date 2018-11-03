@@ -12,7 +12,7 @@ User = get_user_model()
 class RequestOrganForm(forms.ModelForm):
     class Meta:
         model = DoctorRequestOrgan
-        exclude = ['doctor']
+        exclude = ['Doctor']
 
     def __init__(self, *args, **kwargs):
         super(RequestOrganForm, self).__init__(*args, **kwargs)

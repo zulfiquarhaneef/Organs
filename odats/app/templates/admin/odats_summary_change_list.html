@@ -1,6 +1,6 @@
 {% extends 'admin/change_list.html' %}
 {% block content_title %}
-    <h1> ODATS Summary</h1>
+    <h1> ODATS - Stats</h1>
 {% endblock %}
 {% load staticfiles %}
 {% block extrahead %}
@@ -72,12 +72,6 @@
                 },
                 options: options
             });
-        
-
-
-
-
-
            
         }
     </script>
@@ -95,5 +89,43 @@
             <canvas id="grades-chart" style="width: 100px !important;"></canvas>
         </div>
     </div>
+    <hr>
+    <div class="row">
+    	<h3>Summary</h3>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+           <span class="h5">No of Organs by different Blood Groups</span>
+           
+           	{% regroup summary.organs|dictsort:"bloodgroup" by bloodgroup as bloodgroup_list %}
+           	{% for bloodgroup in bloodgroup_list %} 
+           	<div>
+           		<span class="col-sm-1">{{ bloodgroup.grouper }} </span><span>: {{ bloodgroup.list|length }}</span>
+           </div>
+           {% endfor %}
+        </div>
+        <div class="col-sm-4">
+            <span class="h5">Organs based on category</span>
+            {% regroup summary.organs|dictsort:"type_of_organ" by type_of_organ as organ_list %}
+            {% for organ in organ_list %}
+            <div>
+            	<span class="col-sm-2">{{ organ.grouper }}</span><span>: {{ organ.list|length }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-sm-4">
+            <span class="h5">Status of Organs</span>
+            <div>
+            	<span class="col-sm-3">Available</span><span>: {{ summary.available }}</span>
+            </div>
+            <div>
+            	<span class="col-sm-3">Assigned</span><span>: {{ summary.assigned }}</span>
+            </div>
+            <div>
+            	<span class="col-sm-3">Expired</span><span>: {{ summary.expired }}</span>
+            </div>
+        </div>
+    </div>
+    
     <!-- {{ block.super }} -->
 {% endblock %}
