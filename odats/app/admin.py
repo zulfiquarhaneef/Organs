@@ -56,10 +56,13 @@ class ReportsAdmin(admin.ModelAdmin):
             qs = response.context_data['cl'].queryset
         except (AttributeError, KeyError):
             return response
+        organs = Organ.objects.all()
 
         objs = {
-            'organs' : Organ.objects.all(),
-            'assigned' : AssingedOrgans.objects.all()
+            'organs' : organs,
+            'assigned' : len([org for org in organs if org.assigned == True]),
+            'expired' : len([org for org in organs if org.expired == True]),
+            'available' : len([org for org in organs if org.assigned == False and org.expired == False])
         }
 
         response.context_data['summary'] = objs

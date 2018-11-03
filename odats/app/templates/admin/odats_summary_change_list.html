@@ -57,14 +57,17 @@
 
              var ctx = document.getElementById("grades-chart");
              options.title.text = 'Organs by State'
-            {% regroup summary.organs|dictsort:"assigned" by assigned as assigned_list %}
+            
             var lineChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: [{% for assigned in assigned_list %}'{{ assigned.grouper }}',{% endfor %}],
+                    labels: ['Assigned', 'Expired', 'Available'],
                     datasets: [{
-                        data: [{% for assigned in assigned_list %}'{{ assigned.list|length }}',{% endfor %}],
-                        backgroundColor: [{% for assigned in assigned_list %}randomColorGenerator(),{% endfor %}]
+                        data: [ {{ summary.assigned }},
+                        		{{ summary.expired }},
+                        		{{ summary.available}},
+                        	],
+                        backgroundColor: [randomColorGenerator(),randomColorGenerator(),randomColorGenerator()]
                     }]
                 },
                 options: options
