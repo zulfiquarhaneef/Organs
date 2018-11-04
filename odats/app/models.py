@@ -223,11 +223,11 @@ class AssingedOrgans(models.Model):
 class OdatsSummary(AssingedOrgans):
 	class Meta:
 		proxy = True
-		verbose_name = 'ODATS Summary'
-		verbose_name_plural = 'ODATS Summary'
+		verbose_name = 'ODATS - Stats'
+		verbose_name_plural = 'ODATS - Stats'
 
 
-#@background()
+@background()
 def updateOrgans():
 	organs = Organ.objects.all()
 	for organ in organs:
@@ -239,6 +239,6 @@ def updateOrgans():
 			print(timedelta(hours=6))
 			organ.expired = True
 			organ.save()
-#updateOrgans(repeat=120)
+updateOrgans(repeat=120)
 #updateOrgans()
 
