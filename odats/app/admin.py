@@ -60,6 +60,7 @@ class ReportsAdmin(admin.ModelAdmin):
 
         objs = {
             'organs' : organs,
+            'docreq' : DoctorRequestOrgan.objects.all(),
             'assigned' : len([org for org in organs if org.assigned == True]),
             'expired' : len([org for org in organs if org.expired == True]),
             'available' : len([org for org in organs if org.assigned == False and org.expired == False])
@@ -74,6 +75,6 @@ admin.site.register(OdatsSummary, ReportsAdmin)
 admin.site.register(Organ)
 admin.site.register(DonateOrgan)
 admin.site.register(DoctorRequestOrgan)
-admin.site.register(AssingedOrgans)
+#admin.site.register(AssingedOrgans)
 admin.site.register(Hospital)
 admin.site.register(Doctor)

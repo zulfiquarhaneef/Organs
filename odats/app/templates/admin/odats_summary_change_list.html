@@ -28,15 +28,15 @@
         };
         window.onload = function () {
             var ctx = document.getElementById("gender-chart");
-            {% regroup summary.organs|dictsort:"bloodgroup" by bloodgroup as bloodgroup_list %}
-            options.title.text = 'Organs by Blood Group'
+            {% regroup summary.docreq|dictsort:"Doctor" by Doctor as doctor_list %}
+            options.title.text = 'Req by Doctors'
             var lineChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: [{% for bloodgroup in bloodgroup_list %}'{{ bloodgroup.grouper }}',{% endfor %}],
+                    labels: [{% for doc in doctor_list %}'{{ doc.grouper.full_name }}',{% endfor %}],
                     datasets: [{
-                        data: [{% for bloodgroup in bloodgroup_list %}'{{ bloodgroup.list|length }}',{% endfor %}],
-                        backgroundColor: [{% for bloodgroup in bloodgroup_list %}randomColorGenerator(),{% endfor %}]
+                        data: [{% for doc in doctor_list %}'{{ doc.list|length }}',{% endfor %}],
+                        backgroundColor: [{% for doc in doctor_list %}randomColorGenerator(),{% endfor %}]
                     }]
                 },
                 options: options
@@ -95,12 +95,12 @@
     </div>
     <div class="row">
         <div class="col-sm-4">
-           <span class="h5">No of Organs by different Blood Groups</span>
+           <span class="h5">No of Reqs by different Doctors</span>
            
-           	{% regroup summary.organs|dictsort:"bloodgroup" by bloodgroup as bloodgroup_list %}
-           	{% for bloodgroup in bloodgroup_list %} 
+           	{% regroup summary.docreq|dictsort:"Doctor" by Doctor as doctor_list %}
+           	{% for doc in doctor_list %} 
            	<div>
-           		<span class="col-sm-1">{{ bloodgroup.grouper }} </span><span>: {{ bloodgroup.list|length }}</span>
+           		<span class="col-sm-3">{{ doc.grouper.full_name }} </span><span>: {{ doc.list|length }}</span>
            </div>
            {% endfor %}
         </div>

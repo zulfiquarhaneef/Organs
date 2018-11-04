@@ -229,7 +229,7 @@ class OdatsSummary(AssingedOrgans):
 
 @background()
 def updateOrgans():
-	organs = Organ.objects.all()
+	organs = Organ.objects.exclude(expired=True).exclude(assigned=True)
 	for organ in organs:
 		delta = (timezone.make_aware(datetime.now(), timezone.get_current_timezone()) - organ.pub_date)
 		if timedelta(hours=6) > delta:
