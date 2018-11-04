@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Request Organ</title>
+    <title>Donate Organ</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -66,12 +66,14 @@
    <br>
     <div class="contact-form" style="margin-top: 20px">
         <div class="container">
-            <form method="POST" action="/reqorgan/">{% csrf_token %}
+            <form method="POST" action="/donate/">{% csrf_token %}
             <div class="row opening-hours h-100">
-            	<h2 class="d-flex align-items-center">Request For Organ</h2>
+            	<h2 class="d-flex align-items-center">Donate Organ</h2>
                 
                 
-                {{ form }}
+                {{ form_donate }}
+
+                {{ form_organ }}
 
 
                 <div class="col-12">

@@ -139,7 +139,7 @@ class GuestEmail(models.Model):
 class Organ(models.Model):
 	type_of_organ = models.CharField('Organ', choices=ORGAN, default='HEART', max_length=15)
 	bloodgroup = models.CharField('BGroup', choices=BLOODGROUPS, default='B+', max_length=10)
-	pub_date = models.DateTimeField('datetime')
+	pub_date = models.DateTimeField('datetime', auto_now_add=True)
 	expired = models.BooleanField(default=False)
 	assigned = models.BooleanField(default=False)
 	donor = models.ForeignKey(User, related_name='donor', default=0)

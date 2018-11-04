@@ -2,12 +2,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from django.contrib.auth.decorators import login_required
 
+from datetime import datetime
+
 from django.views.generic import CreateView, FormView
 from django.contrib.auth import authenticate, login, get_user_model
 from django.shortcuts import render,redirect
 from django.utils.http import is_safe_url
 
-from .forms import LoginForm, RegisterForm, GuestForm, RequestOrganForm
+from .forms import LoginForm, RegisterForm, GuestForm, RequestOrganForm, OrganForm, DonateOrganForm
 from .models import GuestEmail
 
 # Create your views here.
@@ -17,11 +19,36 @@ def index(request):
 	return render(request, 'app/index.html', context)
 
 def about(request):
-	return HttpResponse("About page")
+	return render(request, 'app/about.html')
 
 @login_required
 def donate(request):
-	return HttpResponse("Donate page")
+	if request.method == 'POST':
+		form_donate = DonateOrganForm(request.POST)
+		form_organ = OrganForm(request.POST)
+
+		organ = form_organ.save(commit=False)
+		organ.donor = request.user
+		organ.pub_date = datetime.now()
+		organ.save()
+
+		donateorgan = form_donate.save(commit=False)
+		donateorgan.organ = organ
+		donateorgan.save()
+
+	
+
+	form_donate = DonateOrganForm()
+	form_organ = OrganForm()
+
+
+	context = {
+		'form_donate' : form_donate,
+		'form_organ' : form_organ
+	}
+	return render(request, 'app/donate.html', context)
+
+
 
 
 class ReqOrganView(FormView):

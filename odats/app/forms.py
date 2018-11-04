@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-from .models import DoctorRequestOrgan, Organ
+from .models import DoctorRequestOrgan, Organ, DonateOrgan
 
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
@@ -17,6 +17,16 @@ class RequestOrganForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(RequestOrganForm, self).__init__(*args, **kwargs)
         self.fields['organs'].queryset = Organ.objects.exclude(expired=True).exclude(assigned=True)
+
+class DonateOrganForm(forms.ModelForm):
+    class Meta:
+        model = DonateOrgan
+        exclude = ['organ']
+
+class OrganForm(forms.ModelForm):
+    class Meta:
+        model = Organ
+        fields = ['type_of_organ', 'bloodgroup']
 
 
 class UserAdminCreationForm(forms.ModelForm):
