@@ -30,8 +30,8 @@
             var ctx = document.getElementById("gender-chart");
             {% regroup summary.docreq|dictsort:"Doctor.full_name" by Doctor.full_name as doctor_list %}
             // {% regroup summary.organs|dictsort:"bloodgroup" by bloodgroup as bloodgroup_list %}
-            options.title.text = 'Organs by Blood Group'
-            // options.title.text = 'Req by Doctors'
+            // options.title.text = 'Organs by Blood Group'
+            options.title.text = 'Req by Doctors'
             var lineChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
