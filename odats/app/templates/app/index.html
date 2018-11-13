@@ -82,7 +82,7 @@
 
         <div class="swiper-container hero-slider">
             <div class="swiper-wrapper">
-                <div class="swiper-slide hero-content-wrap" style="background-image: url('img/hero.jpg')">
+                <div class="swiper-slide hero-content-wrap" style="background-image: url('{% static "img/hero.jpg" %}')">
                     <div class="hero-content-overlay position-absolute w-100 h-100">
                         <div class="container h-100">
                             <div class="row h-100">
@@ -104,7 +104,7 @@
                     </div><!-- .hero-content-overlay -->
                 </div><!-- .hero-content-wrap -->
 
-                <div class="swiper-slide hero-content-wrap" style="background-image:url('{{ STATIC_URL }}img/hero.jpg')">
+                <div class="swiper-slide hero-content-wrap" style="background-image:url('{% static "img/hero.jpg" %}')">
                     <div class="hero-content-overlay position-absolute w-100 h-100">
                         <div class="container h-100">
                             <div class="row h-100">
@@ -126,7 +126,7 @@
                     </div><!-- .hero-content-overlay -->
                 </div><!-- .hero-content-wrap -->
 
-                <div class="swiper-slide hero-content-wrap" style="background-image: url('images/hero.jpg')">
+                <div class="swiper-slide hero-content-wrap" style="background-image: url('{% static "img/hero.jpg" %}')">
                     <div class="hero-content-overlay position-absolute w-100 h-100">
                         <div class="container h-100">
                             <div class="row h-100">
@@ -167,7 +167,7 @@
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="our-departments-cont">
                                     <header class="entry-header d-flex flex-wrap align-items-center">
-                                        <img src="images/cardiogram.png" alt="">
+                                        <img src='{% static "img\cardiogram.png" %}' alt="">
 
                                         <h3>Cardioology</h3>
                                     </header>
@@ -293,7 +293,7 @@
                             <div class="col-12 col-md-6 col-lg-4 mb-lg-0">
                                 <div class="our-departments-cont">
                                     <header class="entry-header d-flex flex-wrap align-items-center">
-                                        <img src="images/blood-donation-2.png" alt="">
+                                        <img src='{% static "img/blood-donation-2.png" %}' alt="">
 
                                         <h3>Pediatry</h3>
                                     </header>
