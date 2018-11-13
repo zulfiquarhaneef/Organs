@@ -61,9 +61,9 @@ class ReportsAdmin(admin.ModelAdmin):
         objs = {
             'organs' : organs,
             'docreq' : DoctorRequestOrgan.objects.all(),
-            'assigned' : len([org for org in organs if org.assigned == True]),
-            'expired' : len([org for org in organs if org.expired == True]),
-            'available' : len([org for org in organs if org.assigned == False and org.expired == False])
+            'assigned' : [org for org in organs if org.assigned == True],
+            'expired' : [org for org in organs if org.expired == True],
+            'available' : [org for org in organs if org.assigned == False and org.expired == False]
         }
 
         response.context_data['summary'] = objs
