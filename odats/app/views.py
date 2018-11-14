@@ -60,7 +60,9 @@ class ReqOrganView(FormView):
 		form.instance.Doctor = self.request.user
 		form.instance.organs.assigned = True
 		form.instance.organs.save()
-		form.save()
+		reqOrgan = form.save(commit=False)
+		reqOrgan.req_date = datetime.now()
+		reqOrgan.save()
 		return HttpResponseRedirect(self.get_success_url())
 
 

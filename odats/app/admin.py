@@ -61,6 +61,7 @@ class ReportsAdmin(admin.ModelAdmin):
         objs = {
             'organs' : organs,
             'docreq' : DoctorRequestOrgan.objects.all(),
+            'donors' : DonateOrgan.objects.all(),
             'assigned' : [org for org in organs if org.assigned == True],
             'expired' : [org for org in organs if org.expired == True],
             'available' : [org for org in organs if org.assigned == False and org.expired == False]

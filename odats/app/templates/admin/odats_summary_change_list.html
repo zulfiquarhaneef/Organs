@@ -6,6 +6,7 @@
 {% block extrahead %}
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
     <script>
         var randomColorGenerator = function () {
@@ -157,6 +158,76 @@
            </div>
            {% endfor %}
         </div>
+    </div>
+    <div class="row" style="padding-top: 50px">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Organ Donors
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+              <div class="panel-body">
+                <table class="table table-condensed table-hover">
+                  <thead>
+                      <th>Donor</th>
+                      <th>Gender</th>
+                      <th>Organ</th>
+                      <th>BloodGroup</th>
+                      <th>Date & Time</th>
+                  </thead>
+                  <tbody>
+                      {% for donor in summary.donors %}
+                      <tr>
+                          <td>{{ donor.full_name }}</td>
+                          <td>{{ donor.Gender }}</td>
+                          <td>{{ donor.organ.type_of_organ }}</td>
+                          <td>{{ donor.organ.bloodgroup }}</td>
+                          <td>{{ donor.organ.pub_date }}</td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+              <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Organ Requestors
+                </a>
+              </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+              <div class="panel-body">
+                <table class="table table-condensed table-hover">
+                  <thead>
+                      <th>Doctor</th>
+                      <th>Patient</th>
+                      <th>Organ</th>
+                      <th>BloodGroup</th>
+                      <th>Date & Time</th>
+                  </thead>
+                  <tbody>
+                      {% for doc in summary.docreq %}
+                      <tr>
+                          <td>{{ doc.Doctor.full_name }}</td>
+                          <td>{{ doc.Patientname }}</td>
+                          <td>{{ doc.organs.type_of_organ }}</td>
+                          <td>{{ doc.organs.bloodgroup }}</td>
+                          <td>{{ doc.req_date }}</td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+      </div>
     </div>
     
     <!-- {{ block.super }} -->

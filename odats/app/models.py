@@ -204,6 +204,7 @@ class DoctorRequestOrgan(models.Model):
 	Description=models.CharField(max_length=500)
 	Contactnumber=models.CharField(max_length=200)
 	Email=models.CharField(max_length=200)
+	req_date = models.DateTimeField('datetime', auto_now_add=True)
 	def __str__(self):
 		return self.Doctor.full_name
 		
