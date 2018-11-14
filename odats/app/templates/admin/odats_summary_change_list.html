@@ -177,6 +177,7 @@
                       <th>Gender</th>
                       <th>Organ</th>
                       <th>BloodGroup</th>
+                      <th>Status</th>
                       <th>Date & Time</th>
                   </thead>
                   <tbody>
@@ -186,6 +187,15 @@
                           <td>{{ donor.Gender }}</td>
                           <td>{{ donor.organ.type_of_organ }}</td>
                           <td>{{ donor.organ.bloodgroup }}</td>
+                          <td>
+                              {% if donor.organ.expired %}
+                              Expired
+                              {% elif donor.organ.assigned %}
+                              Assigned
+                              {% else %}
+                              Available
+                              {% endif %}
+                          </td>
                           <td>{{ donor.organ.pub_date }}</td>
                       </tr>
                       {% endfor %}
